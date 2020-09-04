@@ -1,0 +1,114 @@
+<style>
+  button,
+  input[type="submit"],
+  input[type="reset"] {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+  }
+
+  *:focus {
+    outline: none;
+  }
+
+  .danmu-root {
+    width: 100%;
+    display: flex;
+    flex-grow: 1;
+    position: relative;
+    height: 30px;
+    line-height: 30px;
+    background: #f4f4f4;
+    color: #999;
+    border-radius: 2px;
+  }
+
+  .bp-svgicon,
+  .bp-svgicon svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .danmu-btn {
+    margin-right: 8px;
+    justify-content: center;
+  }
+
+  .danmu-input-wrap {
+    width: 200px;
+    border-radius: 2px 0 0 2px;
+    display: flex;
+    flex: 1;
+    border: 1px solid #e7e7e7;
+    box-sizing: border-box;
+  }
+
+  .danmu-input {
+    color: #212121;
+    flex-grow: 1;
+    border: 0;
+    height: 30px;
+    line-height: 30px;
+    box-sizing: border-box;
+    z-index: 12;
+    padding: 0 5px;
+    background: none;
+    font-size: 12px;
+    min-width: 115px;
+    width: 100%;
+  }
+
+  .btn-send {
+    z-index: 13;
+    height: 30px;
+    width: 60px;
+    min-width: 60px;
+    line-height: 30px;
+    text-align: center;
+    box-sizing: border-box;
+    border-radius: 0 2px 2px 0;
+    background-color: #00a1d6;
+    color: #fff;
+  }
+</style>
+
+<div class="danmu-root">
+  <div class="danmu-btn">
+    <button class="danmu-btn-pause" onClick="playBullets();">
+      <span class="bp-svgicon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22">
+          <path
+            d="M17.982 9.275L8.06 3.27A2.013 2.013 0 005 4.994v12.011a2.017 2.017 0 003.06 1.725l9.922-6.005a2.017 2.017 0 000-3.45z"
+          ></path>
+        </svg>
+      </span>
+    </button>
+    <button class="danmu-btn-pause">
+      <span class="bp-svgicon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22">
+          <path
+            d="M7 3a2 2 0 00-2 2v12a2 2 0 104 0V5a2 2 0 00-2-2zM15 3a2 2 0 00-2 2v12a2 2 0 104 0V5a2 2 0 00-2-2z"
+          ></path>
+        </svg>
+      </span>
+    </button>
+  </div>
+  <div class="danmu-input-wrap">
+    <input
+      class="danmu-input"
+      type="text"
+      id="bulletText"
+      placeholder="说点儿什么吧"
+    />
+  </div>
+  <button
+    class="btn-send"
+    onClick='createBullet(document.getElementById("bulletText").value);'
+  >
+    发送
+  </button>
+</div>
