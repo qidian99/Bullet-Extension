@@ -73,8 +73,8 @@ export const fetchAllRooms = async () => {
     const {
       allRooms: rooms
     } = await excecuteQuery(allRoomsQuery);
-
-    console.log('rooms', rooms)
+    console.log('rooms', JSON.stringify(rooms))
+    return rooms;
 
   } catch (errors) {
     console.error(formatErrors(errors));

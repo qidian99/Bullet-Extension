@@ -1,4 +1,8 @@
 /* line 1, ../scss/dashboard.scss */
-* {
-  border: "1px solid red";
+html,
+body {
+  display: flex;
+  justify-content: center;
+  height: 800px;
+  width: 600px;
 }
