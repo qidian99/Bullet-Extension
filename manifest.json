@@ -4,7 +4,7 @@
   "description": "Build an Extension!",
   "permissions": ["activeTab", "declarativeContent", "storage"],
   "browser_action": {
-    "default_popup": "popup.html",
+    "default_popup": "html/login.html",
     "default_icon": {
       "16": "images/get_started16.png",
       "32": "images/get_started32.png",
@@ -20,9 +20,13 @@
   },
   "background": {
     "scripts": [
-      "thirdParty/jquery-3.4.1.min.js"
+      "thirdParty/jquery-3.4.1.min.js",
+      "thirdParty/bootstrap.min.js"
     ],
     "persistent": false
   },
+  "web_accessible_resources": [
+    "js/util.js"
+  ],
   "manifest_version": 2
 }

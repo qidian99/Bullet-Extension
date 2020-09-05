@@ -1,22 +1,17 @@
-  // let changeColor = document.getElementById('changeColor');
+import { loginUser } from './util.js'
 
-  // chrome.storage.sync.get('color', function(data) {
-  //   changeColor.style.backgroundColor = data.color;
-  //   changeColor.setAttribute('value', data.color);
-  // });
+loginButton.addEventListener("click", function (e) {
+  e.preventDefault();
 
-  // changeColor.onclick = function(element) {
-  //   let color = element.target.value;
-  //   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-  //     chrome.tabs.executeScript(
-  //         tabs[0].id,
-  //         {code: 'document.body.style.backgroundColor = "' + color + '";'});
-  //   });
-  // };
+  // alert(test);
+  alert('sb')
+  // Success
+  // alert(`${username.value}:${password.value}`)
 
-  loginButton.addEventListener("click", function(e){
-    e.preventDefault();
-
-    window.location.href="/html/dashboard.html";
-    chrome.browserAction.setPopup({ popup: '/html/dashboard.html' }, () => { console.log("setting pop up.")});
+  window.location.href = "/html/dashboard.html";
+  chrome.browserAction.setPopup({
+    popup: '/html/dashboard.html'
+  }, () => {
+    console.log("setting pop up.")
+  });
 });
