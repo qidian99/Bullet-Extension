@@ -20,7 +20,7 @@
   },
   "background": {
     "scripts": [
-      "thirdParty/jquery-3.4.1.min.js",
+      "thirdParty/jquery-3.4.1.min.js"
     ],
     "persistent": false
   },
