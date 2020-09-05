@@ -1,0 +1,18 @@
+/* line 1, ../scss/login.scss */
+html,
+body {
+  display: flex;
+  justify-content: center;
+  height: 800px;
+  width: 600px;
+}
+
+/* line 10, ../scss/login.scss */
+.main-container {
+  width: 100%;
+  padding: 2em;
+}
+/* line 13, ../scss/login.scss */
+.main-container > form {
+  width: 100%;
+}
