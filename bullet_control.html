@@ -1,14 +1,22 @@
 <style>
+  * {
+    font-size: 12px;
+    font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica,
+      Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif;
+  }
+
   button,
   input[type="submit"],
   input[type="reset"] {
     background: none;
-    color: inherit;
     border: none;
-    padding: 0;
-    font: inherit;
     cursor: pointer;
-    outline: inherit;
+    padding: 0;
+    outline: none;
+    color: inherit;
+    text-align: inherit;
+    font: inherit;
+    line-height: inherit;
   }
 
   *:focus {
@@ -19,6 +27,7 @@
     width: 100%;
     display: flex;
     flex-grow: 1;
+    align-items: center;
     position: relative;
     height: 30px;
     line-height: 30px;
@@ -27,18 +36,41 @@
     border-radius: 2px;
   }
 
-  .bp-svgicon,
-  .bp-svgicon svg {
-    width: 30px;
-    height: 30px;
+  .danmu-btn {
+    width: 36px;
+    height: 22px;
+    line-height: 22px;
   }
 
-  .danmu-btn {
-    margin-right: 8px;
-    justify-content: center;
+  .danmu-btn button {
+    display: inline-flex;
+  }
+
+  button.danmu-btn-pause {
+    display: none;
+  }
+
+  .bp-svgicon,
+  .bp-svgicon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .bp-svgicon {
+    height: 22px;
+  }
+
+  .time-textarea {
+    width: 84px;
+    line-height: 22px;
+    height: 22px;
+    font-size: 12px;
+    position: relative;
+    cursor: pointer;
   }
 
   .danmu-input-wrap {
+    margin-left: 50px;
     width: 200px;
     border-radius: 2px 0 0 2px;
     display: flex;
@@ -51,7 +83,7 @@
     color: #212121;
     flex-grow: 1;
     border: 0;
-    height: 30px;
+    height: 28px;
     line-height: 30px;
     box-sizing: border-box;
     z-index: 12;
@@ -78,7 +110,7 @@
 
 <div class="danmu-root">
   <div class="danmu-btn">
-    <button class="danmu-btn-pause" onClick="playBullets();">
+    <button class="danmu-btn-start" onClick="playBullets();">
       <span class="bp-svgicon">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22">
           <path
@@ -96,6 +128,13 @@
         </svg>
       </span>
     </button>
+  </div>
+  <div class="time-textarea">
+    <div>
+      <span>01:59</span>
+      /
+      <span>03:39</span>
+    </div>
   </div>
   <div class="danmu-input-wrap">
     <input
