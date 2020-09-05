@@ -18,5 +18,11 @@
     "48": "images/get_started48.png",
     "128": "images/get_started128.png"
   },
+  "background": {
+    "scripts": [
+      "thirdParty/jquery-3.4.1.min.js",
+    ],
+    "persistent": false
+  },
   "manifest_version": 2
 }
