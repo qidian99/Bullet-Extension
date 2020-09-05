@@ -1,7 +1,9 @@
 import {
-  loginMutation
+  loginMutation, allRoomsQuery
 } from './graphql.js'
 
+
+const formatErrors = errors => errors.map(err => err.message).join(',');
 
 const excecuteQuery = (query, variables) => {
   return new Promise((resolve, reject) => {
@@ -61,7 +63,20 @@ export const loginUser = async (username, password) => {
     });
 
   } catch (errors) {
-    // Login error
-    console.error(errors.map(err => err.message).join(','));
+    console.error(formatErrors(errors));
+  }
+}
+
+
+export const fetchAllRooms = async () => {
+  try {
+    const {
+      allRooms: rooms
+    } = await excecuteQuery(allRoomsQuery);
+
+    console.log('rooms', rooms)
+
+  } catch (errors) {
+    console.error(formatErrors(errors));
   }
 }
