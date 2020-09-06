@@ -1,5 +1,5 @@
 import {
-  loginMutation, allRoomsQuery
+  loginMutation, allRoomsQuery, bulletsQuery
 } from './graphql.js'
 
 
@@ -55,9 +55,9 @@ export const loginUser = async (username, password) => {
     chrome.storage.sync.set({ token }, function () {
       console.log("Token is set", token);
     });
-    window.location.href = "/html/dashboard.html";
+    window.location.href = "/html/video.html";
     chrome.browserAction.setPopup({
-      popup: '/html/dashboard.html'
+      popup: '/html/video.html'
     }, () => {
       console.log("setting pop up.")
     });
@@ -76,6 +76,17 @@ export const fetchAllRooms = async () => {
     console.log('rooms', JSON.stringify(rooms))
     return rooms;
 
+  } catch (errors) {
+    console.error(formatErrors(errors));
+  }
+}
+
+
+export const fetchAllDanmu = async (roomId, videoId) => {
+  try {
+    const { bullets } = await excecuteQuery(bulletsQuery, { roomId, videoId });
+    console.log('bullets', bullets);
+    return bullets;
   } catch (errors) {
     console.error(formatErrors(errors));
   }

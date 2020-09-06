@@ -1,16 +1,16 @@
-var element = document.getElementById('bulletTextView');
+var element = document.getElementById("bulletTextView");
 if (element == null) {
-  console.log('injecting code');
+  console.log("injecting code");
 
-  element = document.createElement('div');
-  element.id = 'bulletTextView'
+  element = document.createElement("div");
+  element.id = "bulletTextView";
   element.style.cssText = `
-    position: fixed;
-    bottom: 20px;
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
-    z-index: 999;
+  position: fixed;
+  bottom: 20px;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  z-index: 999;
   `;
   element.innerHTML = `
   <style>
@@ -144,14 +144,6 @@ if (element == null) {
         </span>
       </button>
     </div>
-    <div>
-      <span class="bp-svgicon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22">
-          <circle cx="11" cy="11" r="2"></circle>
-          <path d="M19.164 8.861L17.6 8.6a6.978 6.978 0 00-1.186-2.099l.574-1.533a1 1 0 00-.436-1.217l-1.997-1.153a1.001 1.001 0 00-1.272.23l-1.008 1.225a7.04 7.04 0 00-2.55.001L8.716 2.829a1 1 0 00-1.272-.23L5.447 3.751a1 1 0 00-.436 1.217l.574 1.533A6.997 6.997 0 004.4 8.6l-1.564.261A.999.999 0 002 9.847v2.306c0 .489.353.906.836.986l1.613.269a7 7 0 001.228 2.075l-.558 1.487a1 1 0 00.436 1.217l1.997 1.153c.423.244.961.147 1.272-.23l1.04-1.263a7.089 7.089 0 002.272 0l1.04 1.263a1 1 0 001.272.23l1.997-1.153a1 1 0 00.436-1.217l-.557-1.487c.521-.61.94-1.31 1.228-2.075l1.613-.269a.999.999 0 00.835-.986V9.847a.999.999 0 00-.836-.986zM11 15a4 4 0 110-8 4 4 0 010 8z"></path>
-        </svg>
-      </span>
-    </div>
     <div class="time-textarea">
       <div>
         <span>01:59</span>
@@ -169,7 +161,7 @@ if (element == null) {
     </div>
     <button
       class="btn-send"
-      onClick='createDanmu(document.getElementById("bulletText").value);'
+      onClick='createDanmu(bulletText.value);'
     >
       发送
     </button>
@@ -177,23 +169,24 @@ if (element == null) {
   `;
   document.body.appendChild(element);
 
-  let bulletStyle = document.createElement('style');
+  let bulletStyle = document.createElement("style");
   bulletStyle.innerHTML = `
   .bullet {
     width: 200px;
-    position: fixed;
+    position: absolute;
     top: 0;
     font-size: 19px;
     line-height: 1.21053;
     font-weight: 400;
     letter-spacing: .012em;
     font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
-    z-index: 999;
+    z-index: 99999;
+    color: white;
   }
   `;
   document.body.appendChild(bulletStyle);
 
-  let bulletScript = document.createElement('script');
+  let bulletScript = document.createElement("script");
   bulletScript.innerHTML = `
   function createDanmu(content) {
     let bulletEle = document.createElement('div');
@@ -201,7 +194,7 @@ if (element == null) {
     bulletEle.innerHTML = content;
     document.body.appendChild(bulletEle);
     
-    var pos = 0;
+    var pos = -200;
     var id = setInterval(function() {
       if (pos == window.innerWidth) {
         clearInterval(id);
@@ -271,61 +264,82 @@ if (element == null) {
     }
   }
 
-  dragElement(document.getElementById("danmu-root"));
-  `;
+  //dragElement(document.getElementById("danmu-root"));
+`;
   document.body.appendChild(bulletScript);
-
-  var bullets = [
-    {
-      "id": 1,
-      "row": 1,
-      "timestamp": 1,
-      "content": "第一条弹幕"
-    },
-    {
-      "id": 2,
-      "row": 2,
-      "timestamp": 3,
-      "content": "齐齐大佬"
-    },
-    {
-      "id": 3,
-      "row": 1,
-      "timestamp": 10,
-      "content": "我来啦！第一第一！！！"
-    },
-    {
-      "id": 4,
-      "row": 1,
-      "timestamp": 22,
-      "content": "不要刷第一了好嘛"
-    },
-  ];
-
-  let danmubox = document.createElement('div');
-  danmubox.id = 'danmubox';
-  danmubox.style.cssText = `
-    position: absolute;
-    left: ${window.innerWidth}px;
-    top: 0;
-    width: ${bullets[bullets.length - 1].timestamp * 20 + 200}px;
-    height: 100%;
-  `;
-  bullets.forEach(danmu => {
-    let bulletEle = document.createElement('div');
-    bulletEle.style.cssText = `
-      position: absolute;
-      top: ${danmu.row * 25}px;
-      left: ${danmu.timestamp * 20}px;
-      font-size: 19px;
-      line-height: 1.21053;
-      font-weight: 400;
-      letter-spacing: .012em;
-      font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
-      z-index: 999;
-    `;
-    bulletEle.innerHTML = danmu.content;
-    danmubox.appendChild(bulletEle);
-  })
-  document.body.appendChild(danmubox);
 }
+
+const bulletsQuery = `
+query bullets($roomId: ID!, $videoId: ID!) {
+  allBulletsInResource(roomId: $roomId, resourceId: $videoId) {
+    bulletId
+    row
+    timestamp
+    content
+  }
+}
+`;
+
+chrome.storage.sync.get(['token', 'rid', 'vid'], function ({ token, rid, vid }) {
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+  headers.append("Accept", "application/json");
+  if (token) {
+    headers.append("Authorization", `Bearer ${token}`);
+  }
+  console.log(rid, vid);
+
+  fetch('https://qidian.blue/bullet', { // This is the endpoint
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      query: bulletsQuery,
+      variables: {
+        roomId: rid,
+        videoId: vid
+      },
+    })
+  })
+    .then(r => r.json())
+    .then(({
+      data,
+      errors
+    }) => {
+      if (!errors) {
+        const { allBulletsInResource: bullets } = data;
+        console.log(bullets);
+        let danmubox = document.getElementById('danmubox');
+        if (danmubox) {
+          danmubox.removeChild();
+        }
+        danmubox = document.createElement("div");
+        danmubox.id = "danmubox";
+        danmubox.style.cssText = `
+          position: absolute;
+          left: ${window.innerWidth}px;
+          top: 0;
+          width: ${bullets[bullets.length - 1].timestamp * 200 + 500}px;
+          height: 100%;
+          z-index: 9999999;
+        `;
+        
+        bullets.forEach((danmu) => {
+          let bulletEle = document.createElement("div");
+          bulletEle.style.cssText = `
+            position: absolute;
+            top: ${danmu.row * 25}px;
+            left: ${danmu.timestamp * 20}px;
+            color: white;
+            font-size: 19px;
+            line-height: 1.21053;
+            font-weight: 400;
+            letter-spacing: .012em;
+            font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+          `;
+          bulletEle.innerHTML = danmu.content;
+          danmubox.appendChild(bulletEle);
+        });
+        document.body.appendChild(danmubox);
+      }
+    })
+});

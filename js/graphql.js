@@ -63,3 +63,14 @@ export const allRoomsQuery = `query allRooms {
     ${ROOM_FRAGMENT}
   }
 }`
+
+export const bulletsQuery = `
+query bullets($roomId: ID!, $videoId: ID!) {
+  allBulletsInResource(roomId: $roomId, resourceId: $videoId) {
+    bulletId
+    row
+    timestamp
+    content
+  }
+}
+`
