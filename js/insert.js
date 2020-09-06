@@ -146,9 +146,9 @@ if (element == null) {
     </div>
     <div class="time-textarea">
       <div>
-        <span>01:59</span>
+        <span id="curr-time">01:59</span>
         /
-        <span>03:39</span>
+        <span id="full-time">03:39</span>
       </div>
     </div>
     <div class="danmu-input-wrap">
@@ -208,17 +208,21 @@ if (element == null) {
 
   function playDanmu() {
     let danmubox = document.getElementById('danmubox');
+    let indicator = document.getElementById('curr-time');
     window.pos = window.innerWidth;
+    let progress = 0;
     if (window.id != null) {
       clearInterval(window.id);
     }
     window.id = setInterval(function() {
-      if (window.pos == 0) {
+      if (window.pos == -1000) {
         clearInterval(window.id);
         //bulletEle.remove();
       } else {
         window.pos--; 
+        progress++;
         danmubox.style.left = window.pos + "px"; 
+        indicator.innerHTML = (progress / 200).toFixed(2);
       }
     }, 5);
   }
@@ -308,6 +312,8 @@ chrome.storage.sync.get(['token', 'rid', 'vid'], function ({ token, rid, vid }) 
       if (!errors) {
         const { allBulletsInResource: bullets } = data;
         console.log(bullets);
+        let indicator = document.getElementById('full-time');
+        indicator.innerHTML = `${bullets[bullets.length - 1].timestamp}:00`;
         let danmubox = document.getElementById('danmubox');
         if (danmubox) {
           danmubox.removeChild();
